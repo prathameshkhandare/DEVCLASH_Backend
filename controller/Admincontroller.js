@@ -42,7 +42,7 @@ exports.adminLogin = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
 
     // Create token inline
-    const token = jwt.sign({ _id: admin._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 

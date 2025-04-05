@@ -77,7 +77,8 @@ exports.testCompleted = async (req, res) => {
       profile = await Profile.create({
         userId,
         completedTests: [{ testId, testScore }],
-        totalScore: testScore
+        totalScore: testScore,
+        className: req.user.className,
       });
     }
 

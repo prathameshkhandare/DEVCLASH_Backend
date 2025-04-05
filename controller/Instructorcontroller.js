@@ -59,7 +59,7 @@ exports.instructorLogin = async (req, res) => {
     const instructorObj = instructor.toObject();
     delete instructorObj.password;
 
-    const token = jwt.sign({ _id: instructor._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: instructor._id }, process.env.JWT_SECRET, {
       expiresIn: "1d"
     });
 
