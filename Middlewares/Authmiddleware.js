@@ -16,6 +16,7 @@ const authMiddleware = async (req, res, next) => {
     console.log(decoded);
 
     // You can fetch user if you want extra details
+    req.user = decoded;
     // req.user = await User.findById(decoded.id).select("-password"); // Exclude password
     req.user=decoded;
     console.log(req.user);
@@ -24,6 +25,8 @@ const authMiddleware = async (req, res, next) => {
     console.error(err);
     return res.status(401).json({ message: "Token is not valid" });
   }
-};
+}
+
+
 
 module.exports = authMiddleware;
