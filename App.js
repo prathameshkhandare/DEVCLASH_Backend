@@ -8,6 +8,8 @@ const connectDB = require('./configs/dbconfig');
 
 
 const AuthRoute = require('./routes/AuthRoutes')
+const TestRoute = require('./routes/TestRoutes');
+
 // Load environment variables from .env file
 dotenv.config();
 
@@ -17,7 +19,7 @@ connectDB(); // Connect to MongoDB
 // Middlewares
 app.use(cors());
 app.use(express.json());
-
+app.use('/api/test',TestRoute);
 app.use('/api',AuthRoute)
 
 
