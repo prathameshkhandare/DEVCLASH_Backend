@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createSubject, getAllSubjects, getSubjectById } = require("../controllers/subjectController");
+const { createSubject, getAllSubjects, getSubjectById } = require("../controller/Subjectcontroller");
 
 // @route POST /api/subjects
 router.post("/", createSubject);

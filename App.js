@@ -11,6 +11,7 @@ const AuthRoute = require('./routes/AuthRoutes')
 const TestRoute = require('./routes/TestRoutes');
 const ResourceRoute = require('./routes/ResourceRoutes')
 const ModuleRoute = require('./routes/ModuleRoutes');
+const SubjectRoute= require('./routes/SubjectRoutes');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -22,6 +23,7 @@ connectDB(); // Connect to MongoDB
 app.use(cors());
 app.use(express.json());
 app.use('/api/test',TestRoute);
+app.use('/api/subject',SubjectRoute);
 app.use('/api',AuthRoute)
 app.use('/api/resource', ResourceRoute);
 app.use('/api/module', ModuleRoute);

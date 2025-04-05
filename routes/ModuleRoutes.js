@@ -3,14 +3,14 @@ const router = express.Router();
 const {
     createModule,
     getAllModules,
-    getModuleById,
+    getModuleBySubjectAndClass,
     updateModule,
     deleteModule
 } = require('../controller/Modulecontroller');
 
 router.post('/', createModule);
 router.get('/', getAllModules);
-router.get('/:id', getModuleById);
+router.get('/:subject/:classname', getModuleBySubjectAndClass);
 router.put('/:id', updateModule);
 router.delete('/:id', deleteModule);
 
