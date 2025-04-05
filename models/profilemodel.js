@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const profileSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "Module", required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   className: {
     type: String,
     enum: ['Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'],
