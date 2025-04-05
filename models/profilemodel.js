@@ -11,7 +11,10 @@ const profileSchema = new mongoose.Schema({
     testId: { type: mongoose.Schema.Types.ObjectId, ref: "Test" },
     testScore: { type: Number, trim: true }
   }],
-  totalScore: { type: Number, default: 0 }
+  totalScore: { type: Number, default: 0 },
+  progress:{
+    type: Map, of: Number, default: new Map()  // Map<moduleId, percentageCompleted>
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Profile", profileSchema);
