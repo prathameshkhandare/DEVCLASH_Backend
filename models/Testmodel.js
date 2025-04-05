@@ -7,6 +7,11 @@ const testSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
+        testType: {
+            type: String,
+            enum: ["weekly", "normal", "preassessment"],
+            required: true,
+        },
         subject: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Subject",
