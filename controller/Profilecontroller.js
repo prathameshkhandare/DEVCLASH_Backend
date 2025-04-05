@@ -38,8 +38,6 @@ exports.getLeaderBoardList = async(req, res) => {
   }
 }
 
-const Test = require("../models/Test"); // Make sure Test model is imported
-
 exports.testCompleted = async (req, res) => {
   try {
     const userId = req.user._id;

@@ -5,10 +5,12 @@ const {
     getAllResources,
     getResourceById,
     updateResource,
-    deleteResource
+    deleteResource,
+    getInstructorVideos
 } = require('../controller/Resourcecontroller');
 
 // Routes
+router.get('/videos', getInstructorVideos);
 router.post('/', createResource);
 router.get('/', getAllResources);
 router.get('/:id', getResourceById);
@@ -16,3 +18,4 @@ router.put('/:id', updateResource);
 router.delete('/:id', deleteResource);
 
 module.exports = router;
+

@@ -77,7 +77,7 @@ exports.instructorLogin = async (req, res) => {
 exports.videoUpload = async(req, res) => {
   try{
     const { module, videoLink } = req.body;
-    const instructorId = req.user._id;
+    const instructorId = req.user.id;
     const instructorVideo = new InstructorVideo({ instructorId, module, videoLink });
     await instructorVideo.save();
     res.status(200).json({ message: "Video uploaded for scrutiny" });

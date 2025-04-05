@@ -72,10 +72,15 @@ exports.deleteResource = async (req, res) => {
 
 exports.getInstructorVideos = async(req, res) => {
   try{
-    const { module } = req.body
+    console.log("Hello from here")
+    const { module } = req.body;
+    console.log(module);
     const instructorVideos = await InstructorVideo.find({ module, isVerified: true });
+    console.log(instructorVideos);
     req.status(200).json(instructorVideos);
+    // return;
   } catch (err) {
-    res.status(500).json({ message: "Internal server error" });
+    console.log(err);
+    res.status(500).json({ message: "Internal server " });
   }
 }
