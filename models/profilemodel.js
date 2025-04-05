@@ -13,6 +13,9 @@ const profileSchema = new mongoose.Schema({
     testScore: { type: Number, trim: true }
   }],
   totalScore: { type: Number, default: 0 },
+  progress:{
+    type: Map, of: Number, default: new Map()  // Map<moduleId, percentageCompleted>
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Profile", profileSchema);
