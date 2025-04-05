@@ -1,5 +1,5 @@
 // controllers/videoController.js
-const getYoutubeVideos = require("../utils/getYoutubevideo");
+const getYoutubeVideos = require("../utils/getYoutubeVideo");
 
 const getTopicVideos = async (req, res) => {
   try {
