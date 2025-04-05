@@ -59,13 +59,11 @@ exports.getTestsBySubject = async (req, res) => {
     const tests = await Test.find({ subject });
     res.status(200).json({ success: true, tests });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to fetch subject-wise tests",
-        error,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch subject-wise tests",
+      error,
+    });
   }
 };
 
@@ -76,20 +74,23 @@ exports.getTestsByModule = async (req, res) => {
     const tests = await Test.findOne({ module: moduleId });
     res.status(200).json({ success: true, tests });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to fetch module-wise tests",
-        error,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch module-wise tests",
+      error,
+    });
   }
 };
 
 // GET: Weekly tests
 exports.getWeeklyTests = async (req, res) => {
   try {
-    const tests = await Test.find({ grade, type: "weekly" });
+    const { className } = req.params;
+    const tests = await Test.find({
+      type: "weekly",
+
+      classname: { $regex: new RegExp(`^${className}$`, "i") },
+    });
     res.status(200).json({ success: true, tests });
   } catch (error) {
     res
