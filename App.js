@@ -9,6 +9,7 @@ const TestRoute = require('./routes/TestRoutes');
 const ResourceRoute = require('./routes/ResourceRoutes')
 const ModuleRoute = require('./routes/ModuleRoutes');
 const SubjectRoute= require('./routes/SubjectRoutes');
+const StudentProfileRoutes = require('./routes/studentprofileRoutes')
 const ProfileRoute = require('./routes/ProfileRoutes')
 
 // Load environment variables from .env file
@@ -25,6 +26,8 @@ app.use('/api/subject',SubjectRoute);
 app.use('/api',AuthRoute)
 app.use('/api/resource', ResourceRoute);
 app.use('/api/module', ModuleRoute);
+
+app.use('/api',StudentProfileRoutes)
 app.use('/api/profile', ProfileRoute);
 
 // Sample route
