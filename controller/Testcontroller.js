@@ -89,7 +89,7 @@ exports.getTestsByModule = async (req, res) => {
 // GET: Weekly tests
 exports.getWeeklyTests = async (req, res) => {
   try {
-    const tests = await Test.find({ type: "weekly" });
+    const tests = await Test.find({ grade, type: "weekly" });
     res.status(200).json({ success: true, tests });
   } catch (error) {
     res

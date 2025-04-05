@@ -13,7 +13,7 @@ router.post("/create", createTest);
 router.get("/", getAllTests);
 router.get("/by-course/:subject", getTestsBySubject);
 router.get("/by-module/:moduleId", getTestsByModule);
-router.get("/weekly", getWeeklyTests);
+router.get("/weekly/:classname", getWeeklyTests);
 router.get("/:id", getTestById);
 
 module.exports = router;
