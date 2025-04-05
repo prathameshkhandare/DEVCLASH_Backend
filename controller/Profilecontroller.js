@@ -29,7 +29,8 @@ exports.getProfile = async(req, res) => {
 
 exports.getLeaderBoardList = async(req, res) => {
   try{
-    const profiles = await Profile.find().sort({ totalScore: -1 }).limit(50);
+    const className = req.user.className;
+    const profiles = await Profile.find({className}).sort({ totalScore: -1 }).limit(50);
     res.status(200).json(profiles);
   } catch (err) {
     console.error(err);
