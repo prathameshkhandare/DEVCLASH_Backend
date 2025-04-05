@@ -10,9 +10,9 @@ const {
 // Optional middleware to verify authentication (assuming it's available)
 const authMiddleware = require('../Middlewares/Authmiddleware');
 // Routes
-router.post("/module-completed", moduleCompleted);
-router.get("/profile", getProfile);
-router.get("/leaderboard", getLeaderBoardList);
-router.post("/test-completed", testCompleted);
+router.post("/module-completed",authMiddleware, moduleCompleted);
+router.get("/profile",authMiddleware, getProfile);
+router.get("/leaderboard",authMiddleware, getLeaderBoardList);
+router.post("/test-completed",authMiddleware ,testCompleted);
 
 module.exports = router;

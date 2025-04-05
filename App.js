@@ -13,7 +13,7 @@ const StudentProfileRoutes = require('./routes/studentprofileRoutes')
 const ProfileRoute = require('./routes/ProfileRoutes')
 const AdminRoute = require('./routes/AdminRoutes');
 const InstructorRoute = require('./routes/InstructorRoutes');
-
+const YtVideoRoutes = require('./routes/YtVideoRoutes')
 // Load environment variables from .env file
 dotenv.config();
 
@@ -32,6 +32,7 @@ app.use('/api',StudentProfileRoutes)
 app.use('/api/profile', ProfileRoute);
 app.use('/api/admin', AdminRoute);
 app.use('/api/instructor', InstructorRoute);
+app.use('/api',YtVideoRoutes)
 
 // Sample route
 app.get('/', (req, res) => {

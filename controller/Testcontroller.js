@@ -85,11 +85,14 @@ exports.getTestsByModule = async (req, res) => {
 // GET: Weekly tests
 exports.getWeeklyTests = async (req, res) => {
   try {
+    console.log("is jdslf'qE")
     const { className } = req.params;
-    const tests = await Test.find({
-      type: "weekly",
+    console.log(className);
 
-      classname: { $regex: new RegExp(`^${className}$`, "i") },
+    const tests = await Test.find({
+      testType: "weekly",
+
+      className: { $regex: new RegExp(`^${className}$`, "i") },
     });
     res.status(200).json({ success: true, tests });
   } catch (error) {

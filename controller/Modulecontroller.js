@@ -31,7 +31,7 @@ exports.getModuleBySubjectAndClass = async (req, res) => {
   try {
     console.log("inside getmodule by subject and class")
     const { subject, classname } = req.params;
-    const module = await Module.findOne({
+    const module = await Module.find({
       subject,
       classname: { $regex: new RegExp(`^${classname}$`, 'i') }
     })
