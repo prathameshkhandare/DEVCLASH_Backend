@@ -4,14 +4,12 @@ const cors = require('cors');
 
 const connectDB = require('./configs/dbconfig');
 
-
-
-
 const AuthRoute = require('./routes/AuthRoutes')
 const TestRoute = require('./routes/TestRoutes');
 const ResourceRoute = require('./routes/ResourceRoutes')
 const ModuleRoute = require('./routes/ModuleRoutes');
 const SubjectRoute= require('./routes/SubjectRoutes');
+const ProfileRoute = require('./routes/ProfileRoutes')
 
 // Load environment variables from .env file
 dotenv.config();
@@ -27,7 +25,7 @@ app.use('/api/subject',SubjectRoute);
 app.use('/api',AuthRoute)
 app.use('/api/resource', ResourceRoute);
 app.use('/api/module', ModuleRoute);
-
+app.use('/api/profile', ProfileRoute);
 
 // Sample route
 app.get('/', (req, res) => {

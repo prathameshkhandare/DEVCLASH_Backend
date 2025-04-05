@@ -5,9 +5,9 @@ const profileSchema = new mongoose.Schema({
   completedModules: [{ type: mongoose.Schema.Types.ObjectId, ref: "Module" }],
   completedTests: [{
     testId: { type: mongoose.Schema.Types.ObjectId, ref: "Test" },
-    testScore: { type: String, trim: true }
+    testScore: { type: Number, trim: true }
   }],
-  totalScore: Number
+  totalScore: { type: Number, default: 0 }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Profile", profileSchema);
