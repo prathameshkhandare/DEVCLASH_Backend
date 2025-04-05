@@ -68,7 +68,7 @@ console.log("🧠 Weak Topics:", weakTopics);
 
 const youtubeResources = await Promise.all(
     weakTopics.map(async (topic) => {
-      const videos = await getYoutubeVideos(topic,""); // Pass the grade here
+      const videos = await getYoutubeVideos(topic,topic); // Pass the grade here
       return {
         topic,
         videos,
