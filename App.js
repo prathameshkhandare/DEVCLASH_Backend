@@ -9,6 +9,8 @@ const connectDB = require('./configs/dbconfig');
 
 const AuthRoute = require('./routes/AuthRoutes')
 const TestRoute = require('./routes/TestRoutes');
+const ResourceRoute = require('./routes/ResourceRoutes')
+const ModuleRoute = require('./routes/ModuleRoutes');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -21,7 +23,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/api/test',TestRoute);
 app.use('/api',AuthRoute)
-
+app.use('/api/resource', ResourceRoute);
+app.use('/api/module', ModuleRoute);
 
 
 // Sample route

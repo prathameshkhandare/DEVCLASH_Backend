@@ -19,7 +19,8 @@ exports.createSubject = async (req, res) => {
 
 exports.getAllSubjects = async (req, res) => {
   try {
-    const subjects = await Subject.find().populate("modules");
+    // removed populate modules here
+    const subjects = await Subject.find();
     res.status(200).json(subjects);
   } catch (err) {
     console.error("Error fetching subjects:", err);
@@ -29,7 +30,8 @@ exports.getAllSubjects = async (req, res) => {
 
 exports.getSubjectById = async (req, res) => {
   try {
-    const subject = await Subject.findById(req.params.id).populate("modules");
+    // removed populate modules here
+    const subject = await Subject.findById(req.params.id);
     if (!subject) return res.status(404).json({ message: "Subject not found" });
     res.status(200).json(subject);
   } catch (err) {

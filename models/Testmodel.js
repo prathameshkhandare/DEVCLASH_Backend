@@ -8,7 +8,7 @@ const testSchema = new mongoose.Schema(
             trim: true,
         },
         subject: {
-            type: mongoose.schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Subject",
             required: true,
         },
