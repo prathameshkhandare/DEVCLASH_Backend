@@ -1,6 +1,7 @@
 const Profile = require('../models/profilemodel');
 const Test = require('../models/Testmodel');
 const Module = require('../models/modulemodel');
+const Subject = require('../models/subjectmodel')
 exports.moduleCompleted = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -67,20 +68,52 @@ exports.moduleCompleted = async (req, res) => {
 
 
 
-exports.getProfile = async(req, res) => {
-  try{
+
+exports.getProfile = async (req, res) => {
+  try {
     const userId = req.user._id;
-    // const profile = await Profile.findOne({ userId });
-    const profile = await Profile.findOne({ userId }).populate({
-      path: "completedTests.testId",
-      select: "testName"  // sirf name field chahiye from Test model
-    });
+
+    const profile = await Profile.findOne({ userId })
+      .populate({
+        path: "completedTests.testId",
+        select: "testName"
+      })
+      .lean(); // lean for performance & easy object manipulation
+
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    // ✅ Step 1: completedModules details
+    const modules = await Module.find({ _id: { $in: profile.completedModules } })
+      .populate("subject", "name")
+      .select("name subject");
+
+    profile.completedModules = modules.map((mod) => ({
+      _id: mod._id,
+      name: mod.name,
+      subjectName: mod.subject?.name || "Unknown"
+    }));
+
+    // ✅ Step 2: Replace subjectId in progress with subject name
+    const updatedProgress = {};
+    const progressEntries = Object.entries(profile.progress || {});
+
+    for (const [subjectId, percentage] of progressEntries) {
+      const subject = await Subject.findById(subjectId).select("name");
+      const subjectName = subject ? subject.name : "Unknown";
+      updatedProgress[subjectName] = percentage;
+    }
+
+    profile.progress = updatedProgress;
+
     res.status(200).json(profile);
   } catch (err) {
-    console.error(err);
+    console.error("❌ Error in getProfile:", err);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
+
 
 exports.getLeaderBoardList = async(req, res) => {
   try{
