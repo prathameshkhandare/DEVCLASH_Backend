@@ -1,12 +1,27 @@
 const Resource = require('../models/resourcemodel');
-
+const Module = require('../models/modulemodel');
 // @desc    Create new resource
 exports.createResource = async (req, res) => {
   try {
-    const resource = new Resource(req.body);
-    const saved = await resource.save();
-    res.status(201).json(saved);
+    const { name, articleLinks, videoLinks, imageLinks,moduleId } = req.body; 
+    console.log("inside") 
+      const newResource = await Resource.create({
+      name,
+      articleLinks,
+      videoLinks,
+      imageLinks,
+    });
+   
+
+    
+    const module =await Module.findByIdAndUpdate(
+      moduleId,
+      { $push: { resources: newResource._id } },
+      { new: true }
+    );
+    res.status(201).json(newResource);
   } catch (err) {
+    console.error(err);
     res.status(400).json({ message: "Internal server error" });
   }
 };
