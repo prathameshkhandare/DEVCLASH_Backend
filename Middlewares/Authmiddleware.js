@@ -11,11 +11,14 @@ const authMiddleware = async (req, res, next) => {
   const token = authHeader.split(" ")[1];
 
   try {
+    console.log(token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(decoded);
 
     // You can fetch user if you want extra details
     // req.user = await User.findById(decoded.id).select("-password"); // Exclude password
     req.user=decoded;
+    console.log(req.user);
     next();
   } catch (err) {
     console.error(err);

@@ -12,6 +12,7 @@ const SubjectRoute= require('./routes/SubjectRoutes');
 const StudentProfileRoutes = require('./routes/studentprofileRoutes')
 const ProfileRoute = require('./routes/ProfileRoutes')
 const YtVideoRoutes = require('./routes/YtVideoRoutes')
+const TestFeedbackRoute = require('./routes/AiRoutes')
 // Load environment variables from .env file
 dotenv.config();
 
@@ -21,6 +22,7 @@ connectDB(); // Connect to MongoDB
 // Middlewares
 app.use(cors());
 app.use(express.json());
+app.use('/api',TestFeedbackRoute)
 app.use('/api/test',TestRoute);
 app.use('/api/subject',SubjectRoute);
 app.use('/api',AuthRoute)

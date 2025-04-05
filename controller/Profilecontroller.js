@@ -40,7 +40,12 @@ exports.getLeaderBoardList = async(req, res) => {
 
 exports.testCompleted = async (req, res) => {
   try {
-    const userId = req.user._id;
+    const userId = req.user.id;
+    console.log("iske niche")
+    console.log(req.user);
+    console.log("iske upar")
+    console.log(userId);
+    console.log(req.body);
     const { testId, testScore } = req.body;
 
     // Find profile
