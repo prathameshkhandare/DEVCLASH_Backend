@@ -1,4 +1,5 @@
 const Profile = require('../models/profilemodel');
+const Test = require('../models/Testmodel');
 
 exports.moduleCompleted = async (req, res) => {
   try {
@@ -57,10 +58,10 @@ exports.testCompleted = async (req, res) => {
         (test) => test.testId.toString() === testId
       );
 
+      const testType = await Test.findById(completedTests[testIndex]).select("testType");
       if (testIndex !== -1) {
         const existingScore = profile.completedTests[testIndex].testScore;
-
-        if (testScore > existingScore) {
+        if (testScore > existingScore && testType == "weekly") {
           // Update score
           profile.totalScore += testScore - existingScore;
           profile.completedTests[testIndex].testScore = testScore;
@@ -69,7 +70,7 @@ exports.testCompleted = async (req, res) => {
       } else {
         // New test entry
         profile.completedTests.push({ testId, testScore });
-        profile.totalScore += testScore;
+        if(testType == "weekly")profile.totalScore += testScore;
         await profile.save();
       }
     } else {
