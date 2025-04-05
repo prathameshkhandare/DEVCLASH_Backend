@@ -11,6 +11,8 @@ const ModuleRoute = require('./routes/ModuleRoutes');
 const SubjectRoute= require('./routes/SubjectRoutes');
 const StudentProfileRoutes = require('./routes/studentprofileRoutes')
 const ProfileRoute = require('./routes/ProfileRoutes')
+const AdminRoute = require('./routes/AdminRoutes');
+const InstructorRoute = require('./routes/InstructorRoutes');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -26,9 +28,10 @@ app.use('/api/subject',SubjectRoute);
 app.use('/api',AuthRoute)
 app.use('/api/resource', ResourceRoute);
 app.use('/api/module', ModuleRoute);
-
 app.use('/api',StudentProfileRoutes)
 app.use('/api/profile', ProfileRoute);
+app.use('/api/admin', AdminRoute);
+app.use('/api/instructor', InstructorRoute);
 
 // Sample route
 app.get('/', (req, res) => {

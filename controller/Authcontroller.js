@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/usermodel");
 
@@ -83,7 +83,7 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
 
     // Create token inline
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ _id: user._id, className: user.className }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 

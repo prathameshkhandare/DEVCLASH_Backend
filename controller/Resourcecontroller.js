@@ -1,5 +1,6 @@
 const Resource = require('../models/resourcemodel');
 const Module = require('../models/modulemodel');
+const InstructorVideo = require('../models/instructorVideomodel')
 // @desc    Create new resource
 exports.createResource = async (req, res) => {
   try {
@@ -68,3 +69,13 @@ exports.deleteResource = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.getInstructorVideos = async(req, res) => {
+  try{
+    const { module } = req.body
+    const instructorVideos = await InstructorVideo.find({ module, isVerified: true });
+    req.status(200).json(instructorVideos);
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+}

@@ -14,13 +14,16 @@ const authMiddleware = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // You can fetch user if you want extra details
-    req.user = await User.findById(decoded.id).select("-password"); // Exclude password
+    req.user = decoded;
+    // req.user = await User.findById(decoded.id).select("-password"); // Exclude password
 
     next();
   } catch (err) {
     console.error(err);
     return res.status(401).json({ message: "Token is not valid" });
   }
-};
+}
+
+
 
 module.exports = authMiddleware;
