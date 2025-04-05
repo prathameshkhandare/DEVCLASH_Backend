@@ -1,5 +1,5 @@
 const Profile = require('../models/profilemodel');
-
+const Test = require('../models/Testmodel');
 exports.moduleCompleted = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -38,15 +38,20 @@ exports.getLeaderBoardList = async(req, res) => {
   }
 }
 
+const Test = require("../models/Test"); // Make sure Test model is imported
+
 exports.testCompleted = async (req, res) => {
   try {
-    const userId = req.user.id;
-    console.log("iske niche")
-    console.log(req.user);
-    console.log("iske upar")
-    console.log(userId);
-    console.log(req.body);
+    const userId = req.user._id;
+    const className = req.body.className || req.user.className;
     const { testId, testScore } = req.body;
+
+    // Get test info to check if it's weekly
+    const test = await Test.findById(testId);
+    if (!test) return res.status(404).json({ message: "Test not found" });
+
+    // const isWeekly = test.isWeekly;
+    const isWeekly = test.testType === "weekly";
 
     // Find profile
     let profile = await Profile.findOne({ userId });
@@ -54,39 +59,45 @@ exports.testCompleted = async (req, res) => {
     if (profile) {
       // Check if test already exists
       const testIndex = profile.completedTests.findIndex(
-        (test) => test.testId.toString() === testId
+        (t) => t.testId.toString() === testId
       );
 
       if (testIndex !== -1) {
         const existingScore = profile.completedTests[testIndex].testScore;
 
         if (testScore > existingScore) {
-          // Update score
-          profile.totalScore += testScore - existingScore;
           profile.completedTests[testIndex].testScore = testScore;
+
+          if (isWeekly) {
+            profile.totalScore += testScore - existingScore; // Only update if weekly
+          }
+
           await profile.save();
-        } // else do nothing
+        }
+        // Else: score not improved, do nothing
       } else {
-        // New test entry
+        // New test attempt
         profile.completedTests.push({ testId, testScore });
-        profile.totalScore += testScore;
+        if (isWeekly) {
+          profile.totalScore += testScore;
+        }
         await profile.save();
       }
     } else {
-      // Create new profile if not exists
-      profile = await Profile.create({
+      // First time user, create profile
+      const newProfile = await Profile.create({
         userId,
+        className,
         completedTests: [{ testId, testScore }],
-        totalScore: testScore,
-        className: req.user.className,
+        totalScore: isWeekly ? testScore : 0
       });
+      profile = newProfile;
     }
 
     res.status(200).json({
       message: "Test processed successfully",
       profile
     });
-
   } catch (error) {
     console.error("Error in testCompleted:", error);
     res.status(500).json({
@@ -95,4 +106,5 @@ exports.testCompleted = async (req, res) => {
     });
   }
 };
+
 
