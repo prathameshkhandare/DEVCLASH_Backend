@@ -153,11 +153,14 @@ const className = req.body.className || req.user.className;
       const testIndex = profile.completedTests.findIndex(
         (t) => t.testId.toString() === testId
       );
-
+      
+      profile.completedTests[testIndex].testScore = testScore;
+      profile.totalScore = profile.totalScore+testScore;
       if (testIndex !== -1) {
         const existingScore = profile.completedTests[testIndex].testScore;
-
-        if (testScore > existingScore) {
+        console.log("Existing Score:", existingScore);
+        console.log("New Score:", testScore);
+        if (testScore >= existingScore) {
           // Update score
           profile.totalScore += testScore - existingScore;
           profile.completedTests[testIndex].testScore = testScore;
