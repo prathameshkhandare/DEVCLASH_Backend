@@ -6,12 +6,7 @@ exports.createResource = async (req, res) => {
   try {
     const { name, articleLinks, videoLinks, imageLinks,moduleId } = req.body; 
     console.log("inside") 
-      const newResource = await Resource.create({
-      name,
-      articleLinks,
-      videoLinks,
-      imageLinks,
-    });
+      const newResource = await Resource.create(req.body);
    
 
     

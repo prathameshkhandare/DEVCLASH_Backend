@@ -130,8 +130,12 @@ exports.getLeaderBoardList = async(req, res) => {
 
 exports.testCompleted = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const className = req.body.className || req.user.className;
+    
+    const userId = req.user.id;
+    console.log(userId)
+    
+const className = req.body.className || req.user.className;
+
     const { testId, testScore } = req.body;
 
     // Get test info to check if it's weekly
