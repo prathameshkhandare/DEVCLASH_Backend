@@ -87,7 +87,7 @@ exports.approveInstructorVideo = async(req, res) => {
 
 exports.getNotApprovedInstructors = async(req, res) => {
   try{
-    const instructors = await Instructor.find({ isVerified: false });
+    const instructors = await Instructor.find({ isVerified: false }).select("-password");
     res.status(200).json(instructors);
   } catch (err) {
     console.error(err);
