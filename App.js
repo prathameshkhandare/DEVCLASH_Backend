@@ -12,10 +12,14 @@ const SubjectRoute= require('./routes/SubjectRoutes');
 const StudentProfileRoutes = require('./routes/studentprofileRoutes')
 const ProfileRoute = require('./routes/ProfileRoutes')
 const AdminRoute = require('./routes/AdminRoutes');
-const InstructorRoute = require('./routes/InstructorRoutes');
+
 const YtVideoRoutes = require('./routes/YtVideoRoutes')
 const TestFeedbackRoute = require('./routes/AiRoutes')
-// Load environment variables from .env file
+
+const instructorAuthRoutes = require('./routes/InstructorAuthRoutes')
+const qpaperRoutes = require('./routes/InstructorQpaperRoutes')
+const QuestionPaperSolnRoutes = require('./routes/QuestionPaperSolnRoutes')
+// Load environment variables from .env fi
 dotenv.config();
 const ChatRoutes = require('./routes/ChatRoutes');
 
@@ -36,8 +40,11 @@ app.use('/api/module', ModuleRoute);
 app.use('/api',StudentProfileRoutes)
 app.use('/api/profile', ProfileRoute);
 app.use('/api/admin', AdminRoute);
-app.use('/api/instructor', InstructorRoute);
+app.use('/api/qpaper',qpaperRoutes)
+app.use('/api/testsoln',QuestionPaperSolnRoutes)
 app.use('/api',YtVideoRoutes)
+
+app.use("/api/auth", instructorAuthRoutes);
 
 // Sample route
 app.get('/', (req, res) => {

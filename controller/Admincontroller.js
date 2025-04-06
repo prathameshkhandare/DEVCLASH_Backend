@@ -1,7 +1,7 @@
 const Admin = require('../models/adminmodel');
-const Instructor = require('../models/instructormodel');
+
 const InstructorVideo = require('../models/instructorVideomodel');
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.adminRegister = async (req, res) => {
