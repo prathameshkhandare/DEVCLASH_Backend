@@ -2,8 +2,8 @@ const axios = require("axios");
 const getYoutubeVideos = require("../utils/getYoutubeVideo");
 const chatWithGemini = async (req, res) => {
     try {
-        const { questions } = req.body;
-        if (!questions || !Array.isArray(questions)) {
+        const { question } = req.body;
+        if (!question) {
             return res.status(400).json({ error: "Questions array is required" });
         }
 
@@ -57,19 +57,11 @@ if (topicsMatch) {
   }
 }
 
-console.log("🧠 Weak Topics:", weakTopics);
 
 
 
-const youtubeResources = await Promise.all(
-    weakTopics.map(async (topic) => {
-      const videos = await getYoutubeVideos(topic,topic); // Pass the grade here
-      return {
-        topic,
-        videos,
-      };
-    })
-  );
+
+
   
 
 
@@ -79,8 +71,7 @@ const youtubeResources = await Promise.all(
           // Final response
           res.json({
             feedback: reply,
-           weaktopics: weakTopics,
-           youtubeResources:youtubeResources,
+        
 
           });
           
