@@ -17,6 +17,7 @@ const YtVideoRoutes = require('./routes/YtVideoRoutes')
 const TestFeedbackRoute = require('./routes/AiRoutes')
 // Load environment variables from .env file
 dotenv.config();
+const ChatRoutes = require('./routes/ChatRoutes');
 
 const app = express();
 connectDB(); // Connect to MongoDB
@@ -24,6 +25,8 @@ connectDB(); // Connect to MongoDB
 // Middlewares
 app.use(cors());
 app.use(express.json());
+
+app.use('/api',ChatRoutes)
 app.use('/api',TestFeedbackRoute)
 app.use('/api/test',TestRoute);
 app.use('/api/subject',SubjectRoute);
